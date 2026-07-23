@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign a Media Release | Mission 1o2</title>
+<meta name="description" content="Sign the Mission 1o2 media release so we can use footage or photos we've captured of you — no submission needed.">
+<link rel="icon" href="assets/favicon.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container-wide">
+    <a href="index.html"><img src="assets/logos/logo-white.png" alt="Mission 1o2" class="brand-logo"></a>
+    <nav class="site-nav">
+      <a href="index.html" class="nav-link">Share a Story</a>
+      <a href="release.html" class="nav-link active">Sign a Release</a>
+      <a href="admin.html" class="nav-link nav-admin">Admin</a>
+    </nav>
+  </div>
+</header>
+<div class="stripe-band"></div>
+
+<section class="hero-wrap">
+  <div class="hero container">
+    <div class="eyebrow">On-Location Release</div>
+    <h1>We filmed something — let's make it official.</h1>
+    <p class="lead">If Mission 1o2 captured a photo or video of you (on set, at an event, in-store), sign below so we're clear to use it. No file upload needed — just your info and a signature.</p>
+  </div>
+</section>
+
+<div class="container">
+  <div class="card">
+    <form
+      name="release-form"
+      method="POST"
+      enctype="multipart/form-data"
+      id="releaseForm"
+    >
+      <input type="hidden" name="dateSigned" id="dateSignedHidden" value="">
+      <p style="position:absolute; left:-9999px;">
+        <label>Don't fill this out if you're human: <input name="company" /></label>
+      </p>
+      <p id="formError" class="form-error" hidden></p>
+
+      <div class="form-section">
+        <h2>Who's signing</h2>
+
+        <div class="field-row">
+          <div>
+            <label for="rFullName">Full legal name <span class="required-mark">*</span></label>
+            <input type="text" id="rFullName" name="fullName" required autocomplete="name">
+          </div>
+          <div>
+            <label for="rEmail">Email <span class="required-mark">*</span></label>
+            <input type="email" id="rEmail" name="email" required autocomplete="email">
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div>
+            <label for="rPhone">Phone (optional)</label>
+            <input type="tel" id="rPhone" name="phone" autocomplete="tel">
+          </div>
+          <div>
+            <label for="rHandle">Social handle (optional, if you'd like to be tagged)</label>
+            <input type="text" id="rHandle" name="handle" placeholder="@yourhandle">
+          </div>
+        </div>
+
+        <label for="rContext">What's this for?</label>
+        <input type="text" id="rContext" name="context" placeholder="e.g. Instagram Reel shoot, July pop-up event">
+      </div>
+
+      <div class="form-section">
+        <h2>Media Release</h2>
+        <div class="release-text-box">
+          <h3>Mission 1o2 Media Release</h3>
+          <p>By signing below, I grant Mission 1o2 an unrestricted, perpetual, worldwide, royalty-free license to use any photograph, video, audio recording, or other media captured of me by or on behalf of Mission 1o2 (the "Media"), in any current or future format or medium, for any purpose — including marketing, advertising, social media, and other commercial use — without further compensation, notice, or approval required.</p>
+
+          <h3>Ownership &amp; edits</h3>
+          <p>I understand Mission 1o2 may edit, crop, caption, or otherwise modify the Media at its discretion, and is under no obligation to use it.</p>
+
+          <h3>Release of claims</h3>
+          <p>I release Mission 1o2, its employees, and affiliates from any claims arising from use of the Media, including claims related to privacy or likeness.</p>
+
+          <h3>My confirmation</h3>
+          <p>I confirm I am 18 years of age or older, or that a parent/legal guardian is completing and signing this form on my behalf.</p>
+
+          <h3>Revoking permission</h3>
+          <p>This release does not expire on its own. I may revoke it for future use at any time by emailing <a href="mailto:info@mission1o2.com">info@mission1o2.com</a>; Media already published prior to that request may remain in circulation where removal isn't reasonably practical.</p>
+
+          <p style="margin-top:16px; font-size:0.78rem; color:#948d9e;">This is prototype template language for demonstration purposes and has not been reviewed by legal counsel. Have an attorney review and finalize this release before using it in production.</p>
+        </div>
+
+        <div class="checkbox-row" style="margin-bottom:20px;">
+          <input type="checkbox" id="rAgree" name="releaseAgree" value="yes" required>
+          <label for="rAgree">I have read and agree to the Mission 1o2 Media Release above. <span class="required-mark">*</span></label>
+        </div>
+
+        <label>Date</label>
+        <div class="date-display" id="dateDisplay">—</div>
+
+        <label for="signatureCanvas">Signature <span class="required-mark">*</span></label>
+        <div class="signature-wrap">
+          <canvas id="signatureCanvas"></canvas>
+          <div class="signature-row">
+            <span class="signature-hint">Draw your signature above using your mouse or finger.</span>
+            <button type="button" class="btn-small" id="clearSignature">Clear</button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" id="releaseSubmitBtn" style="margin-top:20px;">Sign &amp; Submit Release</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="stripe-band flip"></div>
+<footer class="site-footer">
+  <div class="container">
+    <p>Questions about this release? Email <a href="mailto:info@mission1o2.com">info@mission1o2.com</a>.</p>
+    <p>&copy; 2026 Mission 1o2. All rights reserved.</p>
+    <p style="opacity:0.5; font-size:0.72rem;">Build v2 — 2026-07-22 22:14 UTC</p>
+  </div>
+</footer>
+
+<script src="js/release.js"></script>
+</body>
+</html>
