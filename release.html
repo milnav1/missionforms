@@ -2,6 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<script>
+(function () {
+  if (/invite_token=|recovery_token=|confirmation_token=/.test(location.hash)) {
+    location.replace("/admin.html" + location.hash);
+  }
+})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sign a Media Release | Mission 1o2</title>
 <meta name="description" content="Sign the Mission 1o2 media release so we can use footage or photos we've captured of you — no submission needed.">

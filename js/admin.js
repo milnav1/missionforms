@@ -1,5 +1,5 @@
 // Mission 1o2 — admin.html: Netlify Identity auth + live Postgres data + CRUD + CSV export
-import { getUser, login, logout, oauthLogin, handleAuthCallback } from "https://esm.sh/@netlify/identity@1";
+import { getUser, login, logout, oauthLogin, handleAuthCallback, updateUser } from "https://esm.sh/@netlify/identity@1";
 
 (function () {
   var submissions = [];
@@ -44,6 +44,37 @@ import { getUser, login, logout, oauthLogin, handleAuthCallback } from "https://
       adminApp.hidden = true;
     }
   }
+
+  // ---------- Invite / password recovery: set a new password ----------
+  var setPasswordCard = document.getElementById("setPasswordCard");
+  var setPasswordError = document.getElementById("setPasswordError");
+
+  function showSetPasswordCard() {
+    document.querySelector("#loginGate .card").style.display = "none";
+    setPasswordCard.style.display = "block";
+  }
+
+  document.getElementById("setPasswordBtn").addEventListener("click", async function () {
+    var pw = document.getElementById("newPassword").value;
+    setPasswordError.hidden = true;
+
+    if (!pw || pw.length < 8) {
+      setPasswordError.textContent = "Please choose a password with at least 8 characters.";
+      setPasswordError.hidden = false;
+      return;
+    }
+
+    try {
+      await updateUser({ password: pw });
+      setPasswordCard.style.display = "none";
+      document.querySelector("#loginGate .card").style.display = "block";
+      await refreshAuthUI();
+    } catch (err) {
+      setPasswordError.textContent = (err && err.message) ||
+        "Couldn't set your password. Try opening the invite/reset email link again.";
+      setPasswordError.hidden = false;
+    }
+  });
 
   document.getElementById("loginBtn").addEventListener("click", async function () {
     var email = document.getElementById("loginEmail").value.trim();
@@ -386,5 +417,19 @@ import { getUser, login, logout, oauthLogin, handleAuthCallback } from "https://
   });
 
   // ---------- Boot ----------
-  handleAuthCallback().catch(function () {}).then(refreshAuthUI);
+  // Invite/recovery/confirmation links land here (see the redirect snippet
+  // on the other pages) with a token in the URL hash. handleAuthCallback()
+  // exchanges it; for invite/recovery we still need the user to set a
+  // password before they have real login credentials.
+  async function boot() {
+    var result = null;
+    try { result = await handleAuthCallback(); } catch (e) { result = null; }
+
+    if (result && (result.type === "invite" || result.type === "recovery")) {
+      showSetPasswordCard();
+    } else {
+      await refreshAuthUI();
+    }
+  }
+  boot();
 })();

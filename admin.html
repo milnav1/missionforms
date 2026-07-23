@@ -44,6 +44,16 @@
       Don't have an account yet? Ask a Mission 1o2 admin to invite you from Netlify's Identity settings.
     </p>
   </div>
+
+  <div class="card" id="setPasswordCard" style="margin-top:14px; display:none; text-align:left;">
+    <p style="color:#6b6478; margin-top:0;">Welcome! Set a password for your admin account to finish signing in.</p>
+    <p id="setPasswordError" class="form-error" hidden></p>
+
+    <label for="newPassword">New password</label>
+    <input type="password" id="newPassword" autocomplete="new-password" placeholder="At least 8 characters">
+
+    <button class="btn btn-primary btn-block" id="setPasswordBtn" type="button">Set password &amp; continue</button>
+  </div>
 </div>
 
 <!-- ADMIN APP (shown once signed in) -->

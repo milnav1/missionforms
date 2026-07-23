@@ -2,6 +2,15 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<script>
+// Netlify Identity invite/recovery/confirmation links land on the site's
+// root URL — forward them to admin.html, which handles the token.
+(function () {
+  if (/invite_token=|recovery_token=|confirmation_token=/.test(location.hash)) {
+    location.replace("/admin.html" + location.hash);
+  }
+})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Share Your Story | Mission 1o2</title>
 <meta name="description" content="Share your Mission 1o2 testimonial or photo/video — opt in once, and we'll credit and tag you if we feature it.">
