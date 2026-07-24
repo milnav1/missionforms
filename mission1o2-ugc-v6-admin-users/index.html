@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script>
+// Netlify Identity invite/recovery/confirmation links land on the site's
+// root URL — forward them to admin.html, which handles the token.
+(function () {
+  if (/invite_token=|recovery_token=|confirmation_token=/.test(location.hash)) {
+    location.replace("/admin.html" + location.hash);
+  }
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Share Your Story | Mission 1o2</title>
+<meta name="description" content="Share your Mission 1o2 testimonial or photo/video — opt in once, and we'll credit and tag you if we feature it.">
+<link rel="icon" href="assets/favicon.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container-wide">
+    <a href="index.html"><img src="assets/logos/logo-white.png" alt="Mission 1o2" class="brand-logo"></a>
+    <nav class="site-nav">
+      <a href="index.html" class="nav-link active">Share a Story</a>
+      <a href="release.html" class="nav-link">Sign a Release</a>
+      <a href="admin.html" class="nav-link nav-admin">Admin</a>
+    </nav>
+  </div>
+</header>
+<div class="stripe-band"></div>
+
+<section class="hero-wrap">
+  <div class="hero container">
+    <div class="eyebrow">Community Stories</div>
+    <h1>Tell us how Mission 1o2 fits your daily hustle.</h1>
+    <p class="lead">Drop a comment, photo, or video below. Opt in once, and if we feature your story on our channels, we'll always tag and credit you.</p>
+  </div>
+</section>
+
+<div class="container">
+  <div class="card">
+    <form
+      name="ugc-submission"
+      method="POST"
+      enctype="multipart/form-data"
+      id="ugcForm"
+    >
+      <p style="position:absolute; left:-9999px;">
+        <label>Don't fill this out if you're human: <input name="company" /></label>
+      </p>
+      <p id="formError" class="form-error" hidden></p>
+
+      <div class="form-section">
+        <h2>Your info</h2>
+        <p class="hint">We use this to credit you and to keep a record of your submission history — never sold or shared outside Mission 1o2.</p>
+
+        <div class="field-row">
+          <div>
+            <label for="fullName">Full name <span class="required-mark">*</span></label>
+            <input type="text" id="fullName" name="fullName" required autocomplete="name">
+          </div>
+          <div>
+            <label for="email">Email <span class="required-mark">*</span></label>
+            <input type="email" id="email" name="email" required autocomplete="email">
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div>
+            <label for="handle">Social handle <span class="required-mark">*</span></label>
+            <input type="text" id="handle" name="handle" placeholder="@yourhandle" required>
+          </div>
+          <div>
+            <label for="platform">Where should we tag you?</label>
+            <select id="platform" name="platform">
+              <option value="Instagram">Instagram</option>
+              <option value="TikTok">TikTok</option>
+              <option value="Facebook">Facebook</option>
+              <option value="X / Twitter">X / Twitter</option>
+              <option value="Other">Other</option>
+              <option value="Prefer not to be tagged">Prefer not to be tagged</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h2>Your story</h2>
+
+        <label for="product">Which product is this about?</label>
+        <select id="product" name="product">
+          <option value="Daily Hustle — Defend & Restore">Daily Hustle — Defend &amp; Restore</option>
+          <option value="Daily Hustle — Hydrate & Reset">Daily Hustle — Hydrate &amp; Reset</option>
+          <option value="Daily Hustle — Shield & Recover (Sunscreen)">Daily Hustle — Shield &amp; Recover (Sunscreen)</option>
+          <option value="General / Not sure">General / Not sure</option>
+        </select>
+
+        <label for="comment">Your comment or testimonial <span class="required-mark">*</span></label>
+        <textarea id="comment" name="comment" placeholder="Tell us what happened, how it felt, why it stuck with you..." required></textarea>
+
+        <label for="media">Photo or video (optional)</label>
+        <div class="file-drop">
+          <strong>Attach a photo or video</strong> of you using Mission 1o2 — this is what we love to feature most.
+          <br>
+          <input type="file" id="media" name="media" accept="image/*,video/*">
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h2>Permission to use it</h2>
+
+        <div class="consent-block">
+          <div class="checkbox-row">
+            <input type="checkbox" id="releaseAgree" name="releaseAgree" value="yes" required>
+            <label for="releaseAgree">
+              I have read and agree to the
+              <button type="button" class="link-btn" id="openRelease">Mission 1o2 UGC &amp; Testimonial Release Form</button>
+              <span class="required-mark">*</span>
+            </label>
+          </div>
+          <div class="checkbox-row">
+            <input type="checkbox" id="tagConsent" name="tagConsent" value="yes">
+            <label for="tagConsent">Yes — tag/credit me using the handle above if you post my content.</label>
+          </div>
+          <div class="checkbox-row">
+            <input type="checkbox" id="ambassadorInterest" name="ambassadorInterest" value="yes">
+            <label for="ambassadorInterest">I'm interested in future ambassador / influencer opportunities with Mission 1o2.</label>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" id="submitBtn">Submit My Story</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="stripe-band flip"></div>
+<footer class="site-footer">
+  <div class="container">
+    <p>Questions about your submission or this form? Email <a href="mailto:info@mission1o2.com">info@mission1o2.com</a>.</p>
+    <p>&copy; 2026 Mission 1o2. All rights reserved.</p>
+    <p style="opacity:0.5; font-size:0.72rem;">Build v2 — 2026-07-22 22:14 UTC</p>
+  </div>
+</footer>
+
+<!-- Release form modal -->
+<div class="modal-overlay" id="releaseModal">
+  <div class="modal">
+    <button class="modal-close" id="closeRelease" aria-label="Close">&times;</button>
+    <h2>UGC &amp; Testimonial Release Form</h2>
+    <p class="modal-sub">Mission 1o2 — please read before submitting</p>
+
+    <p>By submitting a comment, testimonial, photo, video, or other content ("Submission") through this form, you agree to the following:</p>
+
+    <h3>1. License grant</h3>
+    <p>You grant Mission 1o2 a non-exclusive, worldwide, royalty-free, sublicensable license to use, reproduce, edit, crop, caption, and publish your Submission — in whole or in part — across Mission 1o2's social media channels, website, email, advertising, and marketing materials, in any format now known or later developed.</p>
+
+    <h3>2. Credit &amp; tagging</h3>
+    <p>If Mission 1o2 features your Submission, we will credit and tag you using the social handle you provide, where the platform supports tagging. If you selected "prefer not to be tagged," we will feature your content without a public handle credit.</p>
+
+    <h3>3. Your confirmation</h3>
+    <p>You confirm that you are the original creator of the Submission (or have permission from the creator), that you are 18 years of age or older (or have a parent/guardian's consent), and that if other identifiable people appear in your photo or video, you have their permission to submit it.</p>
+
+    <h3>4. No obligation to use</h3>
+    <p>Mission 1o2 is not obligated to use, publish, or return any Submission. Submitting content does not guarantee it will be featured.</p>
+
+    <h3>5. Compensation</h3>
+    <p>Unless separately agreed in writing (for example, through an ambassador or influencer partnership), Submissions are provided voluntarily and without expectation of payment.</p>
+
+    <h3>6. Revoking permission</h3>
+    <p>You may withdraw this permission at any time for future use by emailing <a href="mailto:info@mission1o2.com">info@mission1o2.com</a>. Content already published prior to your request may remain live where removal is not reasonably practical.</p>
+
+    <h3>7. Your submission history</h3>
+    <p>Mission 1o2 keeps a record of your Submissions and contact details to manage usage rights, coordinate credit/tagging, and identify community members we may invite into ambassador or influencer programs.</p>
+
+    <p style="margin-top:24px; font-size:0.8rem; color:#948d9e;">This is prototype template language for demonstration purposes and has not been reviewed by legal counsel. Have an attorney review and finalize this release before using it in production.</p>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
